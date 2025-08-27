@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Motywator szkolny — Karty</title>
+  <style>
+    :root{
+      --bg1:#FFFFFF;
+      --accent:#BACCAE;
+      --accent-2:#9FBDA8;
+      --card:rgba(255,255,255,0.98);
+      --accent-dark:#183925;
+      --check-green:#2f9e66;
+      --coin:#F2C94C;
+      --muted:#6b6b6b;
+      --radius:14px;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1) 0%, var(--accent) 100%);color:var(--accent-dark);-webkit-font-smoothing:antialiased}
+    .app{max-width:980px;margin:12px auto;padding:12px}
+
+    header{display:flex;align-items:center;gap:12px}
+    .logo{display:flex;align-items:center;gap:10px}
+    .coin{width:44px;height:44px;border-radius:50%;background:linear-gradient(145deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,0.06);font-weight:700;color:#fff} 
+    h1{font-size:18px;margin:0}
+
+    /* tabs */
+    .tabs{display:flex;gap:8px;margin-top:12px}
+    .tab{padding:8px 12px;border-radius:12px;background:rgba(255,255,255,0.9);cursor:pointer;border:1px solid rgba(0,0,0,0.04);font-weight:600}
+    .tab.active{background:linear-gradient(180deg,var(--accent-2),var(--accent));box-shadow:0 10px 30px rgba(0,0,0,0.08);color:#073018}
+
+    /* buttons */
+    .btn{background:linear-gradient(180deg,var(--accent-2),var(--accent));border:0;color:var(--accent-dark);padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,0.06);transition:transform .12s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.secondary{background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.9));border:1px solid rgba(0,0,0,0.06);color:var(--accent-dark)}
+    .btn.small{padding:6px 8px;border-radius:10px;font-size:13px}
+
+    main{margin-top:14px}
+    .panel{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 6px 20px rgba(22,40,25,0.04)}
+
+    /* lobby layout */
+    .lobby-grid{display:grid;grid-template-columns:1fr 320px;gap:14px}
+
+    .wallet{background:transparent;padding:10px 14px;border-radius:12px;display:flex;gap:10px;align-items:center;min-width:160px}
+
+    /* forms & lists */
+    .create-row{display:flex;gap:8px;align-items:center}
+    .create-row input[type="date"], .create-row input[type="text"]{padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:transparent}
+    .create-row .grow{flex:1}
+
+    form.add-task{display:grid;grid-template-columns:1fr 120px 120px 160px 64px;gap:8px;align-items:center;margin-top:12px}
+    input,select{padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:transparent}
+    .task-list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+    .task{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:#fff}
+    .task .meta{flex:1}
+    .task .meta b{display:block}
+    .task .tags{font-size:13px;color:var(--muted);margin-top:6px}
+    .task .actions{display:flex;gap:8px;align-items:center}
+
+    /* checkbox styling */
+    input[type="checkbox"]{width:18px;height:18px;accent-color:var(--check-green);cursor:pointer}
+
+    /* shop */
+    .shop-list{display:flex;flex-direction:column;gap:12px}
+    .shop-item{display:flex;justify-content:space-between;align-items:center;padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,0.05);background:linear-gradient(180deg,#fff,#f7f9f7);transition:transform .12s}
+    .shop-item:hover{transform:translateY(-4px)}
+
+    /* history */
+    .history{max-height:420px;overflow:auto;padding-top:8px}
+    .history-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:#fff;border:1px solid rgba(0,0,0,0.05);gap:12px}
+    .history-item .left{flex:1}
+    .history-item .name{font-weight:800}
+    .history-item .date{font-size:12px;color:var(--muted);margin-top:4px}
+    .counts{font-size:13px;color:var(--muted);margin-top:6px}
+
+    .muted{color:var(--muted)}
+
+    footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* mobile improvements */
+    @media(max-width:720px){
+      .lobby-grid{grid-template-columns:1fr}
+      .panel{padding:12px}
+      .create-row{flex-direction:column;align-items:stretch}
+      .create-row input, .create-row button{width:100%}
+      form.add-task{grid-template-columns:1fr 100px 100px 120px 48px;gap:8px}
+      .tab{padding:10px 14px}
+      .btn{padding:12px;border-radius:14px}
+      .history{max-height:calc(100vh - 360px)}
+    }
+
+    @media(max-width:420px){
+      .app{padding:10px}
+      .create-row input, .create-row button{font-size:14px;padding:12px}
+      form.add-task{grid-template-columns:1fr 80px 80px 100px 40px}
+      .task .tags{font-size:12px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <div class="coin">🌿</div>
+        <div>
+          <h1>Motywator szkolny</h1>
+          <div style="font-size:12px;color:var(--muted)">Estetycznie • Prosto • #BACCAE</div>
+        </div>
+      </div>
+      <div style="margin-left:auto" class="wallet" id="wallet">
+        <div style="font-size:12px;color:var(--muted)">Stan</div>
+        <div id="balance" style="font-weight:700">0</div>
+      </div>
+    </header>
+
+    <div class="tabs" role="tablist">
+      <div class="tab active" data-tab="lobby">🏠 Lobby</div>
+      <div class="tab" data-tab="today">📝 Dzień</div>
+      <div class="tab" data-tab="shop">🛍️ Sklep</div>
+      <div class="tab" data-tab="history">📚 Historia</div>
+    </div>
+
+    <main>
+      <!-- LOBBY -->
+      <section id="tab-lobby" class="panel" style="display:block">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-weight:700">Lobby</div>
+            <div class="muted" style="font-size:13px">Nadaj nazwę dniu przy tworzeniu, podejrzyj je i zarządzaj</div>
+          </div>
+          <div style="text-align:right">
+            <div class="muted" style="font-size:13px">Data</div>
+            <div id="currentDateLobby" style="font-weight:700"></div>
+          </div>
+        </div>
+
+        <div class="lobby-grid" style="margin-top:14px">
+          <div>
+            <div class="create-row">
+              <input type="date" id="newDayDate" />
+              <input type="text" id="newDayName" placeholder="Nazwa dnia (np. Test z matmy)" class="grow" />
+              <button class="btn" id="createNewDay">Stwórz nowy dzień</button>
+            </div>
+
+            <div style="margin-top:12px">
+              <div style="font-weight:700;margin-bottom:8px">Ostatnie dni</div>
+              <div id="quickDays" style="display:flex;flex-direction:column;gap:8px"></div>
+            </div>
+          </div>
+
+          <aside>
+            <div style="background:linear-gradient(180deg,var(--accent-2),var(--accent));padding:14px;border-radius:12px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.08)">
+              <div style="font-weight:700">Szybkie statystyki</div>
+              <div style="margin-top:8px;color:#fff;opacity:0.95">Dni ukończone: <span id="statDays">0</span></div>
+              <div style="margin-top:6px;color:#fff;opacity:0.95">Monety: <span id="statCoins">0</span></div>
+            </div>
+
+            <div style="margin-top:12px" class="panel">
+              <div style="font-weight:700">Szybkie akcje</div>
+              <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+                <button class="btn" id="goToShop">Przejdź do sklepu</button>
+                <button class="btn" id="goToHistory">Zobacz historię</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- TODAY / Day editor -->
+      <section id="tab-today" class="panel" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px">
+            <div style="font-weight:800" id="dayHeaderName">(nie wybrano)</div>
+            <div id="openDayLabel" class="muted" style="margin-top:6px">(data)</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="text" id="dayNameInput" placeholder="Edytuj nazwę dnia" style="padding:8px;border-radius:10px;border:1px solid rgba(0,0,0,0.06)" />
+            <button class="btn small" id="saveDayName">Zapisz</button>
+            <button class="btn" id="lockList">Zakończ listę</button>
+            <button class="btn" id="finishDay">Zakończ dzień</button>
+          </div>
+        </div>
+
+        <form class="add-task" id="taskForm">
+          <input id="title" placeholder="Tytuł zadania" required />
+          <input type="time" id="start" required />
+          <input type="time" id="end" required />
+          <select id="category">
+            <option value="nauka">📚 Nauka (3 monet/godz)</option>
+            <option value="sprzatanie">🧹 Sprzątanie (2 monety)</option>
+            <option value="poranna">🌅 Poranna rutyna (1 moneta)</option>
+            <option value="czas_wolny">🎮 Czas wolny (1 moneta)</option>
+          </select>
+          <button class="btn" id="addTaskBtn" title="Dodaj">➕</button>
+        </form>
+
+        <div class="task-list" id="tasksArea" style="margin-top:12px"></div>
+      </section>
+
+      <!-- SHOP -->
+      <section id="tab-shop" class="panel" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700">Sklep</div>
+          <div class="muted" style="font-size:13px">Wydawaj monety na nagrody</div>
+        </div>
+
+        <div style="margin-top:12px" class="shop-list" id="shopList"></div>
+
+        <div style="margin-top:12px;font-weight:700">Historia zakupów</div>
+        <div id="purchases" style="margin-top:8px;max-height:220px;overflow:auto"></div>
+      </section>
+
+      <!-- HISTORY -->
+      <section id="tab-history" class="panel" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-weight:700">Historia list</div>
+          <div class="muted" style="font-size:13px"><span id="completedDaysCount">0</span> dni ukończonych</div>
+        </div>
+        <div class="history" id="history"></div>
+      </section>
+
+    </main>
+
+    <footer>Stworzono z myślą o koncentracji — więcej koloru <b>#BACCAE</b> 🌿</footer>
+  </div>
+
+  <script>
+    // storage keys
+    const LS = {DAYS:'motywator_days_v1', BAL:'motywator_balance_v1', PUR:'motywator_purchases_v1'};
+    const isoDate = d=>d.toISOString().slice(0,10);
+
+    // load/save
+    const loadObj = k => JSON.parse(localStorage.getItem(k)||'{}');
+    const loadArr = k => JSON.parse(localStorage.getItem(k)||'[]');
+    const save = (k,v)=>localStorage.setItem(k,JSON.stringify(v));
+
+    let days = loadObj(LS.DAYS);
+    let balance = Number(localStorage.getItem(LS.BAL) || 0);
+    let purchases = loadArr(LS.PUR);
+
+    let currentOpenKey = null; // key of day currently shown in DAY tab (null means empty)
+
+    // UI refs
+    const tabs = document.querySelectorAll('.tab');
+    const sections = {lobby:document.getElementById('tab-lobby'), today:document.getElementById('tab-today'), shop:document.getElementById('tab-shop'), history:document.getElementById('tab-history')};
+    const dayHeaderName = document.getElementById('dayHeaderName');
+    const openDayLabel = document.getElementById('openDayLabel');
+    const tasksArea = document.getElementById('tasksArea');
+    const taskForm = document.getElementById('taskForm');
+    const titleIn = document.getElementById('title');
+    const startIn = document.getElementById('start');
+    const endIn = document.getElementById('end');
+    const catIn = document.getElementById('category');
+    const lockListBtn = document.getElementById('lockList');
+    const finishDayBtn = document.getElementById('finishDay');
+    const balanceEl = document.getElementById('balance');
+    const historyEl = document.getElementById('history');
+    const completedDaysCount = document.getElementById('completedDaysCount');
+    const quickDays = document.getElementById('quickDays');
+    const statDays = document.getElementById('statDays');
+    const statCoins = document.getElementById('statCoins');
+    const shopList = document.getElementById('shopList');
+    const purchasesEl = document.getElementById('purchases');
+    const newDayDate = document.getElementById('newDayDate');
+    const newDayName = document.getElementById('newDayName');
+    const createNewDayBtn = document.getElementById('createNewDay');
+    const goToShop = document.getElementById('goToShop');
+    const goToHistory = document.getElementById('goToHistory');
+    const dayNameInput = document.getElementById('dayNameInput');
+    const saveDayNameBtn = document.getElementById('saveDayName');
+
+    // default date inputs
+    const todayKey = isoDate(new Date());
+    if(newDayDate) newDayDate.value = todayKey;
+
+    // initial UI
+    dayHeaderName.textContent = '(nie wybrano)';
+    openDayLabel.textContent = '(data)';
+    balanceEl.textContent = balance;
+    document.getElementById('currentDateLobby').textContent = new Date().toLocaleDateString();
+
+    // TAB behavior
+    tabs.forEach(t=>t.addEventListener('click',()=>{ switchTab(t.dataset.tab); }));
+    function switchTab(name){ tabs.forEach(x=>x.classList.toggle('active', x.dataset.tab===name)); for(const k in sections) sections[k].style.display = (k===name)?'block':'none'; renderAll(); }
+
+    goToShop.addEventListener('click',()=>switchTab('shop'));
+    goToHistory.addEventListener('click',()=>switchTab('history'));
+
+    // create new day with optional name
+    createNewDayBtn.addEventListener('click',()=>{
+      const key = newDayDate.value || todayKey;
+      if(!key) return alert('Wybierz datę.');
+      if(days[key]){
+        currentOpenKey = key; // open existing
+        if(newDayName.value && newDayName.value.trim() !== days[key].name){
+          if(confirm('Dzień już istnieje. Nadpisać nazwę?')){ days[key].name = newDayName.value.trim(); save(LS.DAYS,days); }
+        }
+        switchTab('today');
+        alert('Dzień już istniał — otwarto go.');
+        return;
+      }
+      const name = newDayName.value ? newDayName.value.trim() : '';
+      days[key] = {date:key,name:name,tasks:[],locked:false,completed:false};
+      save(LS.DAYS,days);
+      currentOpenKey = key;
+      switchTab('today');
+      alert('Stworzono nowy dzień: '+(name? name+' ('+key+')': key));
+    });
+
+    // render tasks/day view
+    function renderTasks(){
+      if(!currentOpenKey){
+        tasksArea.innerHTML = '<div class="muted" style="margin-top:8px">Nie wybrano dnia. Wróć do Lobby i wybierz / stwórz dzień ✨</div>';
+        dayHeaderName.textContent = '(nie wybrano)';
+        openDayLabel.textContent = '(data)';
+        dayNameInput.value = '';
+        Array.from(taskForm.querySelectorAll('input,select,button')).forEach(el=>el.disabled = true);
+        lockListBtn.disabled = true; finishDayBtn.disabled = true; saveDayNameBtn.disabled = true; return;
+      }
+
+      const day = days[currentOpenKey];
+      dayHeaderName.textContent = day.name || day.date;
+      openDayLabel.textContent = day.date + (day.completed ? ' • ukończony' : (day.locked ? ' • zamknięta' : ''));
+      dayNameInput.value = day.name || '';
+
+      const isCompleted = !!day.completed;
+      const canEdit = !day.locked && !isCompleted;
+      const canCheck = !isCompleted;
+
+      Array.from(taskForm.querySelectorAll('input,select,button')).forEach(el=>el.disabled = !canEdit);
+      lockListBtn.disabled = day.locked || isCompleted;
+      finishDayBtn.disabled = isCompleted;
+      saveDayNameBtn.disabled = isCompleted;
+
+      tasksArea.innerHTML = '';
+      if(!day.tasks.length){ tasksArea.innerHTML = '<div class="muted" style="margin-top:8px">Brak zadań. Dodaj nowe ✨</div>'; return; }
+
+      day.tasks.forEach(task=>{
+        const el = document.createElement('div'); el.className='task';
+        const meta = document.createElement('div'); meta.className='meta';
+        const b = document.createElement('b'); b.textContent = task.title;
+        const tags = document.createElement('div'); tags.className='tags'; tags.innerHTML = `${formatCategory(task.category)} • ${task.start}–${task.end} • ${computeTaskCoins(task)} 🪙`;
+        meta.appendChild(b); meta.appendChild(tags);
+
+        const actions = document.createElement('div'); actions.className='actions';
+        const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!task.completed; cb.disabled = !canCheck; cb.addEventListener('change',()=>{ task.completed = cb.checked; save(LS.DAYS,days); renderTasks(); });
+        const time = document.createElement('div'); time.className='time'; time.textContent = `${task.start}–${task.end}`;
+
+        if(!day.locked && !isCompleted){ const del = document.createElement('button'); del.className='btn secondary small'; del.textContent='🗑'; del.addEventListener('click',()=>{ if(confirm('Usuń zadanie?')){ day.tasks = day.tasks.filter(t=>t.id!==task.id); save(LS.DAYS,days); renderTasks(); } }); actions.appendChild(del); }
+
+        actions.appendChild(cb);
+        el.appendChild(meta); el.appendChild(time); el.appendChild(actions); tasksArea.appendChild(el);
+      });
+    }
+
+    // add task
+    taskForm.addEventListener('submit',e=>{ e.preventDefault(); if(!currentOpenKey) return alert('Najpierw wybierz lub utwórz dzień.'); const day = days[currentOpenKey]; if(day.locked || day.completed) return alert('Nie można dodawać zadań do zamkniętej/ukończonej listy.'); const title = titleIn.value.trim(); const start = startIn.value; const end = endIn.value; const category = catIn.value; if(!title||!start||!end) return alert('Wypełnij tytuł i godziny.'); const id = Date.now().toString(36)+Math.random().toString(36).slice(2,6); const task = {id,title,start,end,category,completed:false}; day.tasks.push(task); save(LS.DAYS,days); titleIn.value=''; startIn.value=''; endIn.value=''; renderTasks(); });
+
+    // save day name
+    saveDayNameBtn.addEventListener('click',()=>{
+      if(!currentOpenKey) return alert('Brak wybranego dnia.'); const nm = dayNameInput.value.trim(); days[currentOpenKey].name = nm; save(LS.DAYS,days); renderAll(); alert('Nazwa zapisana.');
+    });
+
+    // lock list
+    lockListBtn.addEventListener('click',()=>{ if(!currentOpenKey) return alert('Brak wybranego dnia.'); const day = days[currentOpenKey]; if(day.locked) return alert('Lista już zakończona.'); if(!day.tasks.length) return alert('Brak zadań.'); if(!confirm('Zamknąć listę na ten dzień?')) return; day.locked = true; save(LS.DAYS,days); renderAll(); alert('Lista zamknięta — możesz odhaczać zadania.'); });
+
+    // finish day
+    finishDayBtn.addEventListener('click',()=>{ if(!currentOpenKey) return alert('Brak wybranego dnia.'); const day = days[currentOpenKey]; if(day.completed) return alert('Dzień już zakończony.'); if(!day.tasks.length) return alert('Brak zadań.'); let earned = 0; day.tasks.forEach(t=>{ if(t.completed) earned += computeTaskCoins(t); else earned -= 1; }); if(confirm(`Zakończyć dzień? Bilans: ${earned} monet (niezrobione: -1 każda).`)){ balance += earned; day.completed = true; day.locked = true; day.earned = earned; save(LS.DAYS,days); localStorage.setItem(LS.BAL,balance); currentOpenKey = null; renderAll(); alert('Dzień zakończony — bilans monet: '+earned+' (możesz go podejrzeć w historii).'); } });
+
+    // --- shop ---
+    const shopItems = [
+      {name:'Paczka z Temu — 60 zł', price:150, desc:'Miły prezent'},
+      {name:'Paczka Allegro (≤40 zł)', price:100, desc:'Niespodzianka z Allegro'},
+      {name:'Paczka z Temu — 100 zł', price:250, desc:'Większa nagroda'},
+      {name:'Paczka z Temu — 200 zł', price:480, desc:'Duży prezent'},
+      {name:'Paczka Allegro (≤100 zł)', price:200, desc:'Średnia paczka'}
+    ];
+
+    function renderShop(){ shopList.innerHTML=''; shopItems.forEach(it=>{ const el = document.createElement('div'); el.className='shop-item'; el.innerHTML = `<div><div style="font-weight:700">${it.name} <span class='muted' style='font-weight:400'>- ${it.price} 🪙</span></div><div style='font-size:13px' class='muted'>${it.desc}</div></div>`; const btn = document.createElement('button'); btn.className='btn'; btn.textContent='Kup'; btn.addEventListener('click',()=>{ if(balance < it.price) return alert('Za mało monet.'); if(confirm(`Kupujesz ${it.name} za ${it.price} monet?`)){ balance -= it.price; localStorage.setItem(LS.BAL,balance); const record = {id:Date.now(),name:it.name,price:it.price,date:new Date().toLocaleString()}; purchases.unshift(record); save(LS.PUR,purchases); renderAll(); alert('Zakup zapisany.'); } }); el.appendChild(btn); shopList.appendChild(el); }); }
+
+    function renderPurchases(){ purchasesEl.innerHTML=''; if(!purchases.length){ purchasesEl.innerHTML = '<div class="muted">Brak zakupów.</div>'; return; } purchases.forEach(p=>{ const el = document.createElement('div'); el.style.padding='8px'; el.style.borderBottom='1px dashed rgba(0,0,0,0.06)'; el.innerHTML = `<div style='font-size:14px'>${p.name} <span class='muted' style='font-size:12px'>- ${p.price} 🪙</span></div><div style='font-size:12px' class='muted'>${p.date}</div>`; purchasesEl.appendChild(el); }); }
+
+    // --- history ---
+    function renderHistory(){ historyEl.innerHTML=''; const all = Object.values(days).sort((a,b)=>b.date.localeCompare(a.date)); completedDaysCount.textContent = all.filter(d=>d.completed).length; all.forEach(d=>{ const el = document.createElement('div'); el.className='history-item';
+        const left = document.createElement('div'); left.className='left';
+        const nameEl = document.createElement('div'); nameEl.className='name'; nameEl.textContent = d.name || d.date;
+        const dateEl = document.createElement('div'); dateEl.className='date'; dateEl.textContent = d.date;
+        const comp = (d.tasks||[]).filter(t=>t.completed).length;
+        const un = (d.tasks||[]).length - comp;
+        const counts = document.createElement('div'); counts.className='counts'; counts.textContent = `ukończone: ${comp} • nieukończone: ${un}`;
+        left.appendChild(nameEl); left.appendChild(dateEl); left.appendChild(counts);
+
+        const actions = document.createElement('div'); actions.style.display='flex'; actions.style.gap='8px';
+        const openBtn = document.createElement('button'); openBtn.className='btn small'; openBtn.textContent = d.completed ? 'Podejrzyj' : 'Otwórz';
+        openBtn.addEventListener('click',()=>{ currentOpenKey = d.date; switchTab('today'); });
+        const delBtn = document.createElement('button'); delBtn.className='btn small secondary'; delBtn.textContent='Usuń'; delBtn.addEventListener('click',(ev)=>{ ev.stopPropagation(); if(!confirm('Na pewno usunąć ten dzień i wszystkie jego dane?')) return; delete days[d.date]; save(LS.DAYS,days); if(currentOpenKey === d.date){ currentOpenKey = null; switchTab('lobby'); } renderAll(); });
+        actions.appendChild(openBtn); actions.appendChild(delBtn);
+
+        el.appendChild(left); el.appendChild(actions); historyEl.appendChild(el);
+      }); }
+
+    // quick days
+    function renderQuickDays(){ quickDays.innerHTML=''; const all = Object.values(days).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8); all.forEach(d=>{ const el = document.createElement('div'); el.style.padding='8px'; el.style.borderRadius='10px'; el.style.background='#fff'; el.style.border='1px solid rgba(0,0,0,0.04)'; el.style.display='flex'; el.style.justifyContent='space-between'; el.style.alignItems='center'; const info = document.createElement('div'); info.innerHTML = `<div style='font-weight:700'>${d.name || d.date}</div><div class='muted' style='font-size:12px'>${d.date} ${d.completed? '• ukończony':''}</div>`; info.style.flex='1'; const open = document.createElement('button'); open.className='btn'; open.textContent = d.completed? 'Podejrzyj' : 'Otwórz'; open.disabled = false; open.addEventListener('click',()=>{ currentOpenKey = d.date; switchTab('today'); }); el.appendChild(info); el.appendChild(open); quickDays.appendChild(el); }); }
+
+    // helpers & stats
+    function timeToMinutes(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
+    function computeTaskCoins(task){ const cat=task.category; if(task.start && task.end){ let s=timeToMinutes(task.start); let e=timeToMinutes(task.end); let mins = e - s; if(mins<=0) mins = 60; const hours = mins/60; if(cat==='nauka') return Math.max(1, Math.round(hours*3)); if(cat==='sprzatanie') return 2; return 1; } return 1; }
+    function formatCategory(c){ if(c==='nauka') return '📚 Nauka'; if(c==='sprzatanie') return '🧹 Sprzątanie'; if(c==='poranna') return '🌅 Poranna'; if(c==='czas_wolny') return '🎮 Czas wolny'; return c; }
+    function renderStats(){ const all = Object.values(days); statDays.textContent = all.filter(d=>d.completed).length; statCoins.textContent = balance; }
+
+    // render all
+    function renderAll(){ save(LS.DAYS,days); localStorage.setItem(LS.BAL,balance); save(LS.PUR,purchases); balanceEl.textContent = balance; renderTasks(); renderShop(); renderPurchases(); renderHistory(); renderQuickDays(); renderStats(); }
+
+    // initial render
+    renderAll();
+
+    // persist on unload
+    window.addEventListener('beforeunload',()=>{ save(LS.DAYS,days); localStorage.setItem(LS.BAL,balance); save(LS.PUR,purchases); });
+
+    // debug
+    window.Motywator = {days, balance, purchases};
+  </script>
+</body>
+</html>
