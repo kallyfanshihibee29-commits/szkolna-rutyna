@@ -16,70 +16,82 @@
       --coin:#F2C94C;
       --header-h:64px;
       --bottom-h:86px;
-      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial, "Segoe UI Emoji";
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#fbfffb,#f7fff8);color:var(--text);-webkit-font-smoothing:antialiased}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#ffffff,#fbfffb);color:var(--text);-webkit-font-smoothing:antialiased}
     .app{max-width:980px;margin:0 auto;padding:12px;min-height:100vh;position:relative;padding-bottom:calc(var(--bottom-h) + 16px)}
     header{height:var(--header-h);display:flex;align-items:center;gap:12px;padding:12px}
     .logo{display:flex;align-items:center;gap:10px}
-    .coin-logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(145deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:0 10px 30px rgba(159,189,168,0.12)}
+    .coin-logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(145deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;box-shadow:0 12px 34px rgba(159,189,168,0.12);font-size:20px}
     h1{font-size:18px;margin:0}
     .wallet{display:flex;align-items:center;gap:12px;margin-left:auto}
     .wallet-coin{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:linear-gradient(145deg,#ffd66b,#f5b800);box-shadow:0 6px 18px rgba(0,0,0,0.06);font-weight:700}
 
     /* content */
     .content-viewport{position:relative;overflow:hidden;border-radius:var(--radius);max-width:980px;margin:0 auto}
-    .content-wrapper{display:flex;will-change:transform;transform:translate3d(0,0,0);touch-action:pan-y}
+    .content-wrapper{display:flex;transform:translate3d(0,0,0);touch-action:pan-y}
     .page{flex:0 0 100%;height:calc(100vh - var(--header-h) - var(--bottom-h) - 24px);overflow:auto;padding:12px}
-    .panel{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 10px 40px rgba(0,0,0,0.04);min-height:100%;transition:transform .36s cubic-bezier(.2,.9,.2,1),box-shadow .36s}
+    .panel{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 10px 40px rgba(0,0,0,0.04);min-height:100%;transition:box-shadow .36s}
 
     /* small helpers & visually consistent */
     .muted{color:var(--muted)}
-    .btn{background:linear-gradient(180deg,var(--accent-2),var(--accent));border:0;color:#fff;padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:800;box-shadow:0 14px 40px rgba(159,189,168,0.12);transition:transform .12s cubic-bezier(.2,.9,.2,1),box-shadow .18s,opacity .12s;position:relative;overflow:hidden}
-    .btn:active{transform:scale(.92)}
+    .btn{background:linear-gradient(180deg,var(--accent-2),var(--accent));border:0;color:#fff;padding:10px 14px;border-radius:14px;cursor:pointer;font-weight:800;box-shadow:0 14px 40px rgba(159,189,168,0.12);transition:transform .06s,box-shadow .06s,opacity .06s;position:relative;overflow:hidden}
+    .btn:active{transform:scale(.98)}
     .btn.small{padding:8px 10px;border-radius:12px;font-size:14px}
     .btn.secondary{background:#fff;color:var(--text);border:1px solid rgba(0,0,0,0.06)}
     .click-pulse{touch-action:none}
-    /* stronger press */
-    .click-pulse.press{transform:scale(.86) !important;box-shadow:0 26px 60px rgba(0,0,0,0.22) !important;opacity:.98}
+    .clickable-card{cursor:pointer}
 
     /* ripple */
     .ripple{
       position:absolute;border-radius:50%;transform:translate(-50%,-50%) scale(0);
-      pointer-events:none;opacity:0.6;animation:rippleAnim .7s cubic-bezier(.2,.9,.2,1);
-      background:rgba(0,0,0,0.18);
+      pointer-events:none;opacity:0.6;animation:rippleAnim .6s cubic-bezier(.2,.9,.2,1);
+      background:rgba(0,0,0,0.16);
     }
-    @keyframes rippleAnim{to{transform:translate(-50%,-50%) scale(8);opacity:0}} 
+    @keyframes rippleAnim{to{transform:translate(-50%,-50%) scale(8);opacity:0}}
 
-    .enter-pop{animation:popIn .42s cubic-bezier(.2,.9,.2,1) both}
-    @keyframes popIn{from{transform:translateY(18px) scale(.98);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+    .enter-pop{animation:popIn .3s cubic-bezier(.2,.9,.2,1) both}
+    @keyframes popIn{from{transform:translateY(12px) scale(.995);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 
     /* task entrance for stronger feel */
-    .task-enter{animation:taskIn .46s cubic-bezier(.2,.9,.2,1) both}
-    @keyframes taskIn{from{transform:translateY(18px) scale(.995);opacity:0}50%{transform:translateY(6px) scale(1.01)}to{transform:none;opacity:1}}
+    .task-enter{animation:taskIn .34s cubic-bezier(.2,.9,.2,1) both}
+    @keyframes taskIn{from{transform:translateY(10px) scale(.998);opacity:0}to{transform:none;opacity:1}}
 
-    /* tasks (kept similar to before) */
+    /* tasks */
     .task-list{margin-top:12px;display:flex;flex-direction:column;gap:10px}
-    .task{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:#fff;position:relative;transition:transform .28s,box-shadow .28s}
-    .task:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(0,0,0,0.06)}
+    .task{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:#fff;position:relative;transition:transform .12s,box-shadow .12s}
+    .task:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,0.05)}
     .task.completed{border-left:6px solid var(--accent);background:linear-gradient(90deg,rgba(159,189,168,0.04),#fff)}
     .task .meta b{display:block}
     .task .tags{font-size:13px;color:var(--muted);margin-top:6px}
     input[type="checkbox"]{width:18px;height:18px;accent-color:#2f9e66;cursor:pointer}
 
+    /* quick grid cards */
+    .quick-grid .card{transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;justify-content:space-between;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);background:linear-gradient(180deg,#fff,#fbfffb)}
+    .quick-grid .card:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(0,0,0,0.06)}
+
+    .day-preview{font-size:13px;color:var(--muted);margin-top:8px;min-height:30px}
+
     /* bottom nav */
     .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;height:var(--bottom-h);display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,0.98),#fff);box-shadow:0 28px 80px rgba(0,0,0,0.14);z-index:200;touch-action:none;backdrop-filter:blur(6px);max-width:960px;width:calc(100% - 24px);user-select:none}
-    .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;border-radius:12px;background:transparent;border:0;cursor:pointer;font-weight:700;color:var(--muted);transition:all .18s}
-    .nav-btn.active{background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#083018;box-shadow:0 18px 48px rgba(159,189,168,0.18);transform:translateY(-10px) scale(1.08)}
+    .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;border-radius:12px;background:transparent;border:0;cursor:pointer;font-weight:700;color:var(--muted);transition:all .12s}
+    .nav-btn.active{background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#083018;box-shadow:0 18px 48px rgba(159,189,168,0.18);transform:translateY(-6px)}
     .nav-ico{font-size:18px}
 
-    /* responsive tweaks */
-    @media(max-width:720px){
-      header{padding:10px}
+    /* stack nav on day header */
+    .day-stack-controls{display:flex;align-items:center;gap:8px;margin-left:8px}
+
+    /* responsive tweaks for narrow phones */
+    @media(max-width:420px){
+      :root{ --header-h:56px; --bottom-h:74px; }
+      header{padding:8px}
+      .coin-logo{width:40px;height:40px;font-size:18px}
       .app{padding:8px;padding-bottom:calc(var(--bottom-h) + 8px)}
-      .bottom-nav{padding:8px;gap:6px}
-      .nav-btn{gap:4px;padding:6px}
+      .panel{padding:12px}
+      .btn{padding:8px 10px;font-size:14px}
+      .nav-ico{font-size:16px}
+      .quick-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
     }
   </style>
 </head>
@@ -104,8 +116,8 @@
         <!-- Page 0: Lobby -->
         <section class="page" id="page-lobby" aria-label="Lobby">
           <div class="panel">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div style="flex:1;display:flex;gap:12px">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+              <div style="flex:1;display:flex;gap:12px;min-width:220px">
                 <div style="flex:1;padding:12px;border-radius:12px;background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#fff">
                   <div style="font-size:12px;opacity:.95">Dni ukończone</div>
                   <b id="statDays">0</b>
@@ -115,13 +127,13 @@
                   <b id="statCoins">0</b>
                 </div>
               </div>
-              <div style="text-align:right">
+              <div style="text-align:right;min-width:110px">
                 <div class="muted" style="font-size:12px">Data</div>
                 <div id="currentDateLobby" style="font-weight:700"></div>
               </div>
             </div>
 
-            <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
+            <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
               <input type="date" id="newDayDate" />
               <input type="text" id="newDayName" placeholder="Nazwa dnia (np. Test z matmy)" style="flex:1;padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.06)" />
               <select id="newDayMode" class="click-pulse" style="padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.06)">
@@ -129,11 +141,6 @@
                 <option value="no_time">Bez godzin (lista)</option>
               </select>
               <button id="createNewDay" class="btn click-pulse">Utwórz dzień</button>
-            </div>
-
-            <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
-              <button id="repairDaysBtn" class="btn small click-pulse">Napraw stare wpisy</button>
-              <div style="font-size:13px;color:var(--muted);margin-left:8px">(jeśli masz przestarzały format lokalnego zapisu)</div>
             </div>
 
             <div style="margin-top:14px;font-weight:700">Ostatnie dni</div>
@@ -144,10 +151,18 @@
         <!-- Page 1: Today -->
         <section class="page" id="page-today" aria-label="Dzień">
           <div class="panel" id="todayPanel">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div>
-                <div style="font-weight:800" id="dayHeaderName">(nie wybrano)</div>
-                <div id="openDayLabel" class="muted" style="margin-top:6px">(data)</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+              <div style="display:flex;align-items:center;gap:8px;flex:1">
+                <div>
+                  <div style="font-weight:800;display:flex;align-items:center;gap:8px">
+                    <div id="dayHeaderName">(nie wybrano)</div>
+                    <div class="day-stack-controls" id="dayStackControls" style="margin-left:8px">
+                      <button id="prevDay" class="btn small click-pulse" style="display:none">◀</button>
+                      <button id="nextDay" class="btn small click-pulse" style="display:none">▶</button>
+                    </div>
+                  </div>
+                  <div id="openDayLabel" class="muted" style="margin-top:6px">(data)</div>
+                </div>
               </div>
               <div style="display:flex;gap:8px;align-items:center">
                 <button id="saveDayState" class="btn small click-pulse">Zapisz</button>
@@ -217,52 +232,27 @@
     function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
     function minutesBetween(start, end){ if(!start||!end) return 0; const [sh,sm]=start.split(':').map(Number); const [eh,em]=end.split(':').map(Number); if(Number.isNaN(sh)||Number.isNaN(sm)||Number.isNaN(eh)||Number.isNaN(em)) return 0; let s=sh*60+sm; let e=eh*60+em; if(e<s) e+=24*60; return Math.max(0,e-s); }
 
-    // normalize legacy days formats into a consistent map {id: day}
     function normalizeDays(raw){
       const map = {};
       try{
         if(raw == null) return map;
-        // if it's already a map of id->day, copy and ensure id
         if(!Array.isArray(raw) && typeof raw === 'object'){
           Object.entries(raw).forEach(([k,v])=>{
             if(!v) return;
-            if(typeof v !== 'object') return; // skip primitives
+            if(typeof v !== 'object') return;
             const id = v.id || v.key || k || generateId('d');
             v.id = id;
-            // normalize tasks array
             if(!Array.isArray(v.tasks)) v.tasks = v.tasks ? Object.values(v.tasks).filter(Boolean) : [];
             map[id] = v;
           });
           return map;
         }
-        // if it's an array
         if(Array.isArray(raw)){
           raw.forEach(d=>{ if(!d) return; const id = d.id || d.key || generateId('d'); d.id = id; if(!Array.isArray(d.tasks)) d.tasks = d.tasks ? Object.values(d.tasks).filter(Boolean) : []; map[id] = d; });
           return map;
         }
       }catch(e){ console.error('normalizeDays failed', e); }
       return map;
-    }
-
-    // extra repair step: try to salvage deeply nested/odd legacy shapes
-    function repairLegacyStructure(){
-      // attempt to detect if days is stored as a JSON string inside an object etc.
-      const raw = localStorage.getItem(LS_DAYS);
-      if(!raw) return {ok:true, msg:'brak danych do naprawy'};
-      try{
-        const parsed = JSON.parse(raw);
-        // if parsed looks weird (string inside), try to parse each value
-        let changed = false;
-        if(typeof parsed === 'object' && !Array.isArray(parsed)){
-          Object.entries(parsed).forEach(([k,v])=>{
-            if(typeof v === 'string'){
-              try{ const p2 = JSON.parse(v); parsed[k] = p2; changed = true; }catch(e){}
-            }
-          });
-        }
-        if(changed){ localStorage.setItem(LS_DAYS, JSON.stringify(parsed)); }
-        return {ok:true, msg:'repair attempted', changed};
-      }catch(e){ return {ok:false, msg:'parse failed', error:e.toString()}; }
     }
 
     // load and normalize
@@ -272,6 +262,10 @@
     let purchases = loadArr(LS_PUR);
     let postponed = loadArr(LS_POST) || [];
     let currentOpenKey = null;
+
+    // history stack of opened days (browser-like)
+    let dayHistoryStack = [];
+    let stackPos = -1;
 
     const ratesPerHour = { 'nauka':5,'sprzatanie':3,'czas_wolny':2,'inne':0,'rutyna':2,'roznorodne':2 };
 
@@ -288,15 +282,16 @@
     const newDayName = document.getElementById('newDayName');
     const newDayMode = document.getElementById('newDayMode');
     const createNewDayBtn = document.getElementById('createNewDay');
-    const repairDaysBtn = document.getElementById('repairDaysBtn');
     const saveDayStateBtn = document.getElementById('saveDayState');
     const lockListBtn = document.getElementById('lockList');
     const finishDayBtn = document.getElementById('finishDay');
     const viewPostponedBtn = document.getElementById('viewPostponed');
-    const purchasesEl = document.getElementById('purchases');
     const historyEl = document.getElementById('history');
 
-    // inputs
+    // stack buttons
+    const prevDayBtn = document.getElementById('prevDay');
+    const nextDayBtn = document.getElementById('nextDay');
+
     const titleInp = document.getElementById('title');
     const startInp = document.getElementById('start');
     const endInp = document.getElementById('end');
@@ -307,125 +302,188 @@
     if(balanceVal) balanceVal.textContent = balance;
     if(currentDateLobby) currentDateLobby.textContent = new Date().toLocaleDateString();
 
-    /* ====== NAV + SMOOTH DRAG/INERTIA ====== */
-    let currentIndex = 0; const pagesCount = 3; // updated: lobby, day, history
-    let viewportW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    let isPointerDown = false; let startX = 0; let lastX = 0; let lastT = 0; let velocity = 0; let baseTranslate = 0;
-
-    function setTranslatePercent(pct, animate=false){ if(animate) contentWrapper.style.transition = 'transform .36s cubic-bezier(.2,.9,.2,1)'; else contentWrapper.style.transition = 'none'; contentWrapper.style.transform = `translate3d(${pct}%,0,0)`; }
-    function snapToIndex(i, animate=true){ currentIndex = Math.max(0, Math.min(pagesCount-1, i)); const target = -currentIndex * 100; setTranslatePercent(target, animate); baseTranslate = target; updateNavButtons(); // animate panel pop when opening day
-      if(animate && currentIndex === 1){ const panel = document.getElementById('todayPanel'); if(panel){ panel.classList.remove('enter-pop'); void panel.offsetWidth; panel.classList.add('enter-pop'); setTimeout(()=>panel.classList.remove('enter-pop'), 700); } }
-      renderAll(); }
+    /* ====== NAV (instant jumps without smooth animation) ====== */
+    let currentIndex = 0; const pagesCount = 3;
+    function setTranslatePercentInstant(pct){ contentWrapper.style.transition = 'none'; contentWrapper.style.transform = `translate3d(${pct}%,0,0)`; }
+    function snapToIndex(i){ currentIndex = Math.max(0, Math.min(pagesCount-1, i)); const target = -currentIndex * 100; setTranslatePercentInstant(target); updateNavButtons(); renderAll(); }
     function updateNavButtons(){ navButtons.forEach(b=>b.classList.toggle('active', Number(b.dataset.index) === currentIndex)); }
-    function pointerX(e){ return e.touches ? e.touches[0].clientX : e.clientX; }
+    navButtons.forEach(b=>{ b.addEventListener('click', ()=>{ const idx = Number(b.dataset.index); snapToIndex(idx); }); });
+    window.addEventListener('resize', ()=>{ snapToIndex(currentIndex); });
 
-    function onPointerDown(e){ if(e.button && e.button !== 0) return; isPointerDown = true; startX = pointerX(e); lastX = startX; lastT = performance.now(); velocity = 0; baseTranslate = -currentIndex * 100; contentWrapper.style.transition = 'none'; window.addEventListener('mousemove', onPointerMove, {passive:false}); window.addEventListener('mouseup', onPointerUp); window.addEventListener('touchmove', onPointerMove, {passive:false}); window.addEventListener('touchend', onPointerUp); e.preventDefault && e.preventDefault(); }
-    function onPointerMove(e){ if(!isPointerDown) return; const x = pointerX(e); const dx = x - startX; const pct = baseTranslate + (dx / viewportW) * 100; let pctEffective = pct; if(pct > 10) pctEffective = 10 + (pct - 10) * 0.2; if(pct < -100*(pagesCount-1) - 10) { const over = pct + 100*(pagesCount-1); pctEffective = -100*(pagesCount-1) - 10 + over*0.2; } setTranslatePercent(pctEffective, false); const now = performance.now(); const dt = Math.max(1, now - lastT); velocity = (x - lastX) / dt; lastX = x; lastT = now; if(e.touches && Math.abs(x - startX) > 8) e.preventDefault(); }
-    function onPointerUp(e){ if(!isPointerDown) return; isPointerDown = false; window.removeEventListener('mousemove', onPointerMove); window.removeEventListener('mouseup', onPointerUp); window.removeEventListener('touchmove', onPointerMove); window.removeEventListener('touchend', onPointerUp); const endX = pointerX(e); const dxTotal = endX - startX; const movedPct = (dxTotal / viewportW) * 100; const projection = velocity * 220; const projPct = (projection / viewportW) * 100; const finalPct = -currentIndex * 100 + movedPct + projPct; let targetIndex = Math.round(-finalPct / 100); if(Math.abs(movedPct) < 12 && Math.abs(velocity) < 0.15){ targetIndex = currentIndex; } targetIndex = Math.max(0, Math.min(pagesCount - 1, targetIndex)); snapToIndex(targetIndex, true); }
-
-    contentWrapper.addEventListener('mousedown', onPointerDown);
-    contentWrapper.addEventListener('touchstart', onPointerDown, {passive:false});
-    bottomNav.addEventListener('mousedown', onPointerDown);
-    bottomNav.addEventListener('touchstart', onPointerDown, {passive:false});
-
-    navButtons.forEach(b=>{ b.addEventListener('click', ()=>{ const idx = Number(b.dataset.index); snapToIndex(idx, true); }); });
-    window.addEventListener('resize', ()=>{ viewportW = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0); snapToIndex(currentIndex, false); });
+    // stack helpers
+    function pushToStack(id){
+      if(!id) return;
+      // if moving back and then opening a new day, drop forward history
+      if(stackPos < dayHistoryStack.length - 1){
+        dayHistoryStack = dayHistoryStack.slice(0, stackPos + 1);
+      }
+      // avoid duplicate consecutive
+      if(dayHistoryStack.length === 0 || dayHistoryStack[dayHistoryStack.length -1] !== id){
+        dayHistoryStack.push(id);
+        stackPos = dayHistoryStack.length -1;
+      } else {
+        // same as top — ensure pos points to top
+        stackPos = dayHistoryStack.length -1;
+      }
+      updateStackButtons();
+    }
+    function updateStackButtons(){
+      if(prevDayBtn) prevDayBtn.style.display = (stackPos > 0) ? 'inline-block' : 'none';
+      if(nextDayBtn) nextDayBtn.style.display = (stackPos < dayHistoryStack.length - 1) ? 'inline-block' : 'none';
+    }
+    if(prevDayBtn) prevDayBtn.addEventListener('click', ()=>{ if(stackPos>0){ stackPos--; const id = dayHistoryStack[stackPos]; currentOpenKey = id; renderTasks(); snapToIndex(1); updateStackButtons(); } });
+    if(nextDayBtn) nextDayBtn.addEventListener('click', ()=>{ if(stackPos < dayHistoryStack.length -1){ stackPos++; const id = dayHistoryStack[stackPos]; currentOpenKey = id; renderTasks(); snapToIndex(1); updateStackButtons(); } });
 
     /* ===== APP LOGIC ===== */
     function renderStats(){ const all = Object.values(days||{}); document.getElementById('statDays').textContent = all.filter(d=>d && d.completed).length; document.getElementById('statCoins').textContent = balance; if(balanceVal) balanceVal.textContent = balance; }
 
+    function resolveDayIdentifier(keyOrDay){
+      if(!keyOrDay) return null;
+      if(typeof keyOrDay === 'object'){
+        if(keyOrDay.id) return keyOrDay.id;
+        const direct = Object.entries(days||{}).find(([k,v])=>v===keyOrDay);
+        if(direct) return direct[0];
+        return keyOrDay.date || keyOrDay.name || keyOrDay.key || null;
+      } else {
+        return keyOrDay;
+      }
+    }
+
     function openDay(keyOrDay){
       try{
-        if(!keyOrDay) return;
-        let resolvedId = null;
-        if(typeof keyOrDay === 'object'){
-          resolvedId = keyOrDay.id || keyOrDay.key || null;
-        } else {
-          resolvedId = keyOrDay;
+        const resolved = resolveDayIdentifier(keyOrDay);
+        if(!resolved) return;
+        // try direct map
+        let targetId = null;
+        if(days[resolved]) targetId = resolved;
+        else {
+          const found = Object.entries(days||{}).find(([k,v])=> v && (v.id===resolved || v.date===resolved || v.key===resolved || v.name===resolved));
+          if(found) targetId = found[0];
         }
-        // direct map lookup
-        if(resolvedId && days[resolvedId]){
-          currentOpenKey = resolvedId;
-        } else {
-          // search by id/date/key/name
-          const found = Object.values(days||{}).find(d=>d && (d.id===resolvedId || d.date===resolvedId || d.key===resolvedId || d.name===resolvedId));
-          if(found) currentOpenKey = found.id;
+        if(!targetId){
+          console.warn('Nie znaleziono dnia dla', keyOrDay);
+          return;
         }
-        if(!currentOpenKey){ console.warn('Nie znaleziono dnia dla', keyOrDay); return; }
-        // render selected day content, then navigate
+        // push to history stack and set current
+        pushToStack(targetId);
+        currentOpenKey = targetId;
         renderTasks();
-        snapToIndex(1, true);
-        const panel = document.getElementById('todayPanel'); if(panel){ panel.classList.remove('enter-pop'); void panel.offsetWidth; panel.classList.add('enter-pop'); setTimeout(()=>panel.classList.remove('enter-pop'), 700); }
+        // instant navigate to day page (no smooth transition)
+        snapToIndex(1);
+        // focus input for convenience
+        setTimeout(()=>{ try{ titleInp && titleInp.focus(); }catch(e){} }, 80);
       }catch(e){ console.error('openDay failed', e); }
     }
 
-    function renderQuickDays(){ quickDays.innerHTML = ''; const entries = Object.entries(days||{}).sort((a,b)=> (b[1].created||0) - (a[1].created||0)); entries.forEach(([key,d],i)=>{
-        const card = document.createElement('div'); card.style.padding='12px'; card.style.borderRadius='12px'; card.style.border='1px solid rgba(0,0,0,0.05)'; card.style.background='#fff';
-        card.innerHTML = `<div style="font-weight:800">${escapeHtml(d.name||d.date||d.id)}</div><div class="muted" style="font-size:12px">${escapeHtml(d.date||'')}</div><div class="muted" style="margin-top:8px">Zadań: ${((d.tasks||[]).length)}</div>`;
-        const open = document.createElement('button'); open.className='btn small click-pulse'; open.style.marginTop='8px'; open.textContent = d.completed ? 'Podejrzyj' : 'Otwórz';
-        open.addEventListener('click', ()=>{ openDay(d); });
-        card.appendChild(open);
-        // make whole card clickable (friendly)
-        card.addEventListener('click', (ev)=>{ if(ev.target === open) return; openDay(d); });
-        card.classList.add('enter-pop'); card.style.animationDelay = (i*70)+'ms'; quickDays.appendChild(card);
-    }); }
+    function renderQuickDays(){
+      quickDays.innerHTML = '';
+      const entries = Object.entries(days||{}).sort((a,b)=> (b[1].created||0) - (a[1].created||0));
+      entries.forEach(([key,d],i)=>{
+        const card = document.createElement('div');
+        card.className = 'card clickable-card enter-pop';
+        card.style.animationDelay = (i*40)+'ms';
+        card.style.padding='12px';
+        card.style.borderRadius='12px';
+        card.style.border='1px solid rgba(0,0,0,0.04)';
+        card.style.background='#fff';
+
+        const modeLabel = d.mode === 'no_time' ? 'Lista' : 'Z godzinami';
+        let preview = '';
+        if(Array.isArray(d.tasks) && d.tasks.length){
+          if(d.mode === 'no_time'){
+            preview = d.tasks.slice(0,2).map((t,idx)=>`${idx+1}. ${escapeHtml(t.title)}`).join('<br>');
+            if(d.tasks.length>2) preview += '<br>…';
+          } else {
+            const t = d.tasks[0];
+            preview = `${t ? (t.start||'') + '–' + (t.end||'') + ' • ' + escapeHtml(t.title||'') : ''}`;
+          }
+        } else {
+          preview = '<span class="muted">Brak zadań</span>';
+        }
+
+        card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div style="flex:1">
+              <div style="font-weight:800">${escapeHtml(d.name||d.date||d.id)}</div>
+              <div class="muted" style="font-size:12px;margin-top:6px">${escapeHtml(d.date||'')}</div>
+              <div class="day-preview">${preview}</div>
+            </div>
+            <div style="margin-left:12px;text-align:right">
+              <div style="font-size:12px;color:var(--muted)">${escapeHtml(modeLabel)}</div>
+              <button class="btn small click-pulse" style="margin-top:8px">Otwórz</button>
+            </div>
+          </div>`;
+
+        const openBtn = card.querySelector('button');
+        openBtn.addEventListener('click', (ev)=>{ ev.stopPropagation(); openDay(d); });
+        card.addEventListener('click', ()=>{ openDay(d); });
+
+        quickDays.appendChild(card);
+      });
+      if(entries.length===0){
+        quickDays.innerHTML = '<div class="muted">Brak dni.</div>';
+      }
+    }
 
     function updatePostponedButton(){ if(!viewPostponedBtn) return; if(postponed.length){ viewPostponedBtn.style.display='inline-block'; viewPostponedBtn.textContent = `Odłożone (${postponed.length})`; } else viewPostponedBtn.style.display='none'; }
 
-    function renderTasks(){ try{ tasksArea.innerHTML=''; if(!currentOpenKey){ document.getElementById('dayHeaderName').textContent='(nie wybrano)'; document.getElementById('openDayLabel').textContent='(data)'; taskForm.style.display='grid'; lockListBtn.style.display='inline-block'; updatePostponedButton(); return; }
-      let day = days[currentOpenKey];
-      if(!day){ day = Object.values(days||[]).find(d=>d && (d.id===currentOpenKey || d.date===currentOpenKey || d.key===currentOpenKey)); }
-      if(!day){ currentOpenKey = null; renderTasks(); return; }
-      document.getElementById('dayHeaderName').textContent = day.name || day.date || '(brak nazwy)';
-      document.getElementById('openDayLabel').textContent = (day.date||'') + (day.completed ? ' • ukończony' : '');
-      const isLocked = !!day.locked; const isCompleted = !!day.completed;
-      lockListBtn.style.display = isLocked ? 'none' : 'inline-block';
-      taskForm.style.display = (isLocked || isCompleted) ? 'none' : 'grid';
-      if(day.mode === 'no_time'){ document.getElementById('timeRow').style.display='none'; startInp.required=false; endInp.required=false; } else { document.getElementById('timeRow').style.display='flex'; startInp.required=true; endInp.required=true; }
-      if(!Array.isArray(day.tasks) || !day.tasks.length){ tasksArea.innerHTML = '<div class="muted">Brak zadań.</div>'; updatePostponedButton(); return; }
-      day.tasks.forEach((t, idx)=>{
-        const el = document.createElement('div'); el.className='task task-enter'; if(t.completed) el.classList.add('completed');
-        const meta = document.createElement('div'); meta.className='meta';
-        const timeText = day.mode==='no_time' ? `#${idx+1}` : `${t.start||''}–${t.end||''}`;
-        meta.innerHTML = `<b>${escapeHtml(t.title)} ${t.postponed?'<span class="task-badge">ODŁOŻONO</span>':''}</b><div class="tags muted">${timeText} • ${escapeHtml(t.category)}</div>`;
-        const right = document.createElement('div'); right.style.display='flex'; right.style.gap='8px'; right.style.alignItems='center';
-        if(!isLocked && !isCompleted){
-          const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!t.completed;
-          cb.addEventListener('change', ()=>{ t.completed = cb.checked; save(LS_DAYS,days); renderTasks(); });
-          right.appendChild(cb);
-          if(day.mode === 'no_time'){
-            const up = document.createElement('button'); up.className='btn small click-pulse'; up.textContent='↑'; up.addEventListener('click', ()=>{ if(idx<=0) return; [day.tasks[idx-1], day.tasks[idx]] = [day.tasks[idx], day.tasks[idx-1]]; save(LS_DAYS,days); renderTasks(); });
-            const down = document.createElement('button'); down.className='btn small click-pulse'; down.textContent='↓'; down.addEventListener('click', ()=>{ if(idx>=day.tasks.length-1) return; [day.tasks[idx+1], day.tasks[idx]] = [day.tasks[idx], day.tasks[idx+1]]; save(LS_DAYS,days); renderTasks(); });
-            right.appendChild(up); right.appendChild(down);
-          }
-          const del = document.createElement('button'); del.className='btn secondary small click-pulse'; del.textContent='Usuń'; del.addEventListener('click', ()=>{ if(confirm('Usuń zadanie?')){ day.tasks = day.tasks.filter(x=>x.id!==t.id); save(LS_DAYS,days); renderTasks(); } });
-          right.appendChild(del);
-          const dots = document.createElement('button'); dots.className='btn small click-pulse'; dots.textContent='⋯'; dots.addEventListener('click', ()=>{
-            const action = prompt('Napisz: "o" żeby odłożyć/odłożyć z powrotem, "e" żeby edytować tytuł.'); if(!action) return;
-            if(action.toLowerCase().includes('o')){ t.postponed = !t.postponed; if(t.postponed) postponed.unshift({id:generateId('pst'), title:t.title, category:t.category, sourceDayId: currentOpenKey, originalId: t.id, originalTask:Object.assign({}, t)}); else postponed = postponed.filter(p=>!(p.sourceDayId===currentOpenKey && p.originalId===t.id)); save(LS_POST,postponed); save(LS_DAYS,days); renderTasks(); }
-            else if(action.toLowerCase().includes('e')){ const nt = prompt('Nowy tytuł', t.title); if(nt!==null){ t.title = nt.trim(); save(LS_DAYS,days); renderTasks(); } }
-          });
-          right.appendChild(dots);
-        } else { if(t.completed){ const done = document.createElement('div'); done.style.fontWeight='700'; done.style.color='var(--muted)'; done.textContent='wykonane'; right.appendChild(done); } }
-        el.appendChild(meta); el.appendChild(right); tasksArea.appendChild(el);
-      });
-      setTimeout(()=>{ document.querySelectorAll('.task-enter').forEach(n=>n.classList.remove('task-enter')); }, 700);
-      updatePostponedButton();
-    }catch(e){ console.error('renderTasks failed', e); }
+    function renderTasks(){
+      try{
+        tasksArea.innerHTML='';
+        if(!currentOpenKey){
+          document.getElementById('dayHeaderName').textContent='(nie wybrano)';
+          document.getElementById('openDayLabel').textContent='(data)';
+          taskForm.style.display='grid';
+          lockListBtn.style.display='inline-block';
+          updatePostponedButton();
+          return;
+        }
+        let day = days[currentOpenKey];
+        if(!day){ day = Object.values(days||[]).find(d=>d && (d.id===currentOpenKey || d.date===currentOpenKey || d.key===currentOpenKey)); }
+        if(!day){ currentOpenKey = null; renderTasks(); return; }
+        document.getElementById('dayHeaderName').textContent = day.name || day.date || '(brak nazwy)';
+        document.getElementById('openDayLabel').textContent = (day.date||'') + (day.completed ? ' • ukończony' : '');
+        const isLocked = !!day.locked; const isCompleted = !!day.completed;
+        lockListBtn.style.display = isLocked ? 'none' : 'inline-block';
+        taskForm.style.display = (isLocked || isCompleted) ? 'none' : 'grid';
+        if(day.mode === 'no_time'){ document.getElementById('timeRow').style.display='none'; startInp.required=false; endInp.required=false; } else { document.getElementById('timeRow').style.display='flex'; startInp.required=true; endInp.required=true; }
+        if(!Array.isArray(day.tasks) || !day.tasks.length){ tasksArea.innerHTML = '<div class="muted">Brak zadań.</div>'; updatePostponedButton(); return; }
+        day.tasks.forEach((t, idx)=>{
+          const el = document.createElement('div'); el.className='task task-enter'; if(t.completed) el.classList.add('completed');
+          const meta = document.createElement('div'); meta.className='meta';
+          const timeText = day.mode==='no_time' ? `#${idx+1}` : `${t.start||''}–${t.end||''}`;
+          meta.innerHTML = `<b>${escapeHtml(t.title)} ${t.postponed?'<span class="task-badge">ODŁOŻONO</span>':''}</b><div class="tags muted">${timeText} • ${escapeHtml(t.category)}</div>`;
+          const right = document.createElement('div'); right.style.display='flex'; right.style.gap='8px'; right.style.alignItems='center';
+          if(!isLocked && !isCompleted){
+            const cb = document.createElement('input'); cb.type='checkbox'; cb.checked = !!t.completed;
+            cb.addEventListener('change', ()=>{ t.completed = cb.checked; save(LS_DAYS,days); renderTasks(); });
+            right.appendChild(cb);
+            if(day.mode === 'no_time'){
+              const up = document.createElement('button'); up.className='btn small click-pulse'; up.textContent='↑'; up.addEventListener('click', (ev)=>{ ev.stopPropagation(); if(idx<=0) return; [day.tasks[idx-1], day.tasks[idx]] = [day.tasks[idx], day.tasks[idx-1]]; save(LS_DAYS,days); renderTasks(); });
+              const down = document.createElement('button'); down.className='btn small click-pulse'; down.textContent='↓'; down.addEventListener('click', (ev)=>{ ev.stopPropagation(); if(idx>=day.tasks.length-1) return; [day.tasks[idx+1], day.tasks[idx]] = [day.tasks[idx], day.tasks[idx+1]]; save(LS_DAYS,days); renderTasks(); });
+              right.appendChild(up); right.appendChild(down);
+            }
+            const del = document.createElement('button'); del.className='btn secondary small click-pulse'; del.textContent='Usuń'; del.addEventListener('click', (ev)=>{ ev.stopPropagation(); if(confirm('Usuń zadanie?')){ day.tasks = day.tasks.filter(x=>x.id!==t.id); save(LS_DAYS,days); renderTasks(); } });
+            right.appendChild(del);
+            const dots = document.createElement('button'); dots.className='btn small click-pulse'; dots.textContent='⋯'; dots.addEventListener('click', (ev)=>{ ev.stopPropagation(); const action = prompt('Napisz: "o" żeby odłożyć/odłożyć z powrotem, "e" żeby edytować tytuł.'); if(!action) return; if(action.toLowerCase().includes('o')){ t.postponed = !t.postponed; if(t.postponed) postponed.unshift({id:generateId('pst'), title:t.title, category:t.category, sourceDayId: currentOpenKey, originalId: t.id, originalTask:Object.assign({}, t)}); else postponed = postponed.filter(p=>!(p.sourceDayId===currentOpenKey && p.originalId===t.id)); save(LS_POST,postponed); save(LS_DAYS,days); renderTasks(); } else if(action.toLowerCase().includes('e')){ const nt = prompt('Nowy tytuł', t.title); if(nt!==null){ t.title = nt.trim(); save(LS_DAYS,days); renderTasks(); } } });
+            right.appendChild(dots);
+          } else { if(t.completed){ const done = document.createElement('div'); done.style.fontWeight='700'; done.style.color='var(--muted)'; done.textContent='wykonane'; right.appendChild(done); } }
+          el.appendChild(meta); el.appendChild(right); tasksArea.appendChild(el);
+        });
+        setTimeout(()=>{ document.querySelectorAll('.task-enter').forEach(n=>n.classList.remove('task-enter')); }, 400);
+        updatePostponedButton();
+      }catch(e){ console.error('renderTasks failed', e); }
     }
 
-    function renderPurchases(){ if(!purchasesEl) return; purchasesEl.innerHTML=''; if(!purchases.length) { purchasesEl.innerHTML='<div class="muted">Brak zakupów.</div>'; return; } purchases.forEach(p=>{ const el=document.createElement('div'); el.style.padding='8px'; el.style.borderBottom='1px solid rgba(0,0,0,.04)'; el.innerHTML = `<div style="font-weight:700">${escapeHtml(p.name)} <span class="muted">- ${p.price} 🪙</span></div><div class="muted" style="font-size:12px">${escapeHtml(p.date)}</div>`; purchasesEl.appendChild(el); }); }
-
     function renderHistory(){ if(!historyEl) return; historyEl.innerHTML=''; const entries = Object.entries(days||{}).sort((a,b)=> (b[1].created||0) - (a[1].created||0)); if(!entries.length) historyEl.innerHTML = '<div class="muted">Brak dni</div>';
-      entries.forEach(([key,d],i)=>{ const el=document.createElement('div'); el.style.padding='10px'; el.style.border='1px solid rgba(0,0,0,0.04)'; el.style.borderRadius='12px'; el.style.marginBottom='10px'; el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:800">${escapeHtml(d.name||d.date||d.id)} <span class="muted">• ${escapeHtml(d.date||'')}</span></div><div class="muted" style="margin-top:6px">Zadań: ${((d.tasks||[]).length)}</div></div><div><button class="btn small click-pulse">Otwórz</button></div></div>`; historyEl.appendChild(el); el.classList.add('enter-pop'); el.style.animationDelay = (i*60)+'ms'; el.querySelector('button').addEventListener('click', ()=>{ openDay(d); }); el.addEventListener('click', (ev)=>{ if(ev.target.tagName.toLowerCase()==='button') return; openDay(d); }); }); }
+      entries.forEach(([key,d],i)=>{ const el=document.createElement('div'); el.style.padding='10px'; el.style.border='1px solid rgba(0,0,0,0.04)'; el.style.borderRadius='12px'; el.style.marginBottom='10px'; el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:800">${escapeHtml(d.name||d.date||d.id)} <span class="muted">• ${escapeHtml(d.date||'')}</span></div><div class="muted" style="margin-top:6px">Zadań: ${((d.tasks||[]).length)}</div></div><div><button class="btn small click-pulse">Otwórz</button></div></div>`; historyEl.appendChild(el); el.classList.add('enter-pop'); el.style.animationDelay = (i*40)+'ms'; el.querySelector('button').addEventListener('click', ()=>{ openDay(d); }); el.addEventListener('click', (ev)=>{ if(ev.target.tagName.toLowerCase()==='button') return; openDay(d); }); }); }
 
     /* single renderAll for consistency */
-    function renderAll(){ try{ // save normalized map
+    function renderAll(){ try{
         save(LS_DAYS,days);
         save(LS_PUR,purchases);
         localStorage.setItem(LS_BAL,balance);
         save(LS_POST,postponed);
-        renderStats(); renderQuickDays(); renderTasks(); renderPurchases(); renderHistory(); updatePostponedButton();
+        renderStats(); renderQuickDays(); renderTasks(); renderHistory(); updatePostponedButton(); updateStackButtons();
       }catch(e){ console.error(e); } }
 
     /* ===== EVENTS: create day, add task, lock, finish ===== */
@@ -436,7 +494,15 @@
         const mode = (newDayMode.value || 'with_time');
         const exist = Object.values(days||{}).find(d=>d.date===date && !d.completed);
         if(exist){ if(!confirm('Dzień z tą datą już istnieje i nie jest zakończony. Utworzyć nowy?')) return; }
-        const id = generateId('d'); days[id] = {id,date,name,mode,tasks:[],locked:false,completed:false,created:Date.now()}; save(LS_DAYS,days); currentOpenKey = id; snapToIndex(1,true); renderAll();
+        const id = generateId('d'); days[id] = {id,date,name,mode,tasks:[],locked:false,completed:false,created:Date.now()};
+        save(LS_DAYS,days);
+        currentOpenKey = id;
+        // push to history
+        pushToStack(id);
+        newDayName.value = '';
+        renderAll();
+        snapToIndex(1);
+        setTimeout(()=>{ try{ titleInp && titleInp.focus(); }catch(e){} }, 80);
       }catch(e){ console.error('createNewDay failed', e); }
     });
 
@@ -446,50 +512,31 @@
 
     finishDayBtn.addEventListener('click', ()=>{ try{ if(!currentOpenKey) return alert('Brak otwartego dnia.'); const day = days[currentOpenKey] || Object.values(days||[]).find(d=>d && d.id===currentOpenKey); if(day.completed) return alert('Dzień już zakończony.'); if(!confirm('Zakończyć dzień i rozliczyć monety za wykonane zadania?')) return; let gained = 0; (day.tasks||[]).forEach(t=>{ if(t.postponed) return; if(!t.completed) return; const rate = ratesPerHour[t.category] || 0; if(day.mode === 'with_time'){ const mins = minutesBetween(t.start,t.end); gained += (mins/60) * rate; } else gained += rate; }); gained = Math.round(gained); balance += gained; day.completed = true; day.locked = true; save(LS_DAYS,days); localStorage.setItem(LS_BAL,balance); renderAll(); alert(`Dzień zakończony. Zdobyto +${gained} 🪙.`); }catch(e){ console.error('finish failed', e); } });
 
-    /* postponed modal (simple) */
+    /* postponed modal */
     function renderPostponedModal(){ const root = document.getElementById('postponedModalRoot'); root.innerHTML = ''; if(!postponed.length) return; const back = document.createElement('div'); back.style.position='fixed'; back.style.inset='0'; back.style.background='rgba(0,0,0,0.35)'; back.style.display='flex'; back.style.alignItems='center'; back.style.justifyContent='center'; back.style.zIndex='999'; const modal = document.createElement('div'); modal.style.background='#fff'; modal.style.padding='16px'; modal.style.borderRadius='12px'; modal.style.maxWidth='720px'; modal.style.width='92%'; modal.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:800">Odłożone zadania</div><div><button id="closePost" class="btn small">Zamknij</button></div></div><div id="pstList" style="margin-top:12px"></div>`; back.appendChild(modal); root.appendChild(back); document.getElementById('closePost').addEventListener('click', ()=>{ root.innerHTML=''; }); const list = modal.querySelector('#pstList'); postponed.forEach(p=>{ const item = document.createElement('div'); item.style.display='flex'; item.style.justifyContent='space-between'; item.style.alignItems='center'; item.style.padding='8px'; item.style.borderBottom='1px solid rgba(0,0,0,.04)'; item.innerHTML = `<div><div style="font-weight:700">${escapeHtml(p.title)}</div><div class="muted" style="font-size:12px">Kategoria: ${escapeHtml(p.category)}</div></div>`; const btns = document.createElement('div'); const restore = document.createElement('button'); restore.className='btn small click-pulse'; restore.textContent='Przywróć'; restore.addEventListener('click', ()=>{ if(!currentOpenKey){ alert('Otwórz dzień, do którego chcesz dodać zadanie.'); return; } const d = days[currentOpenKey] || Object.values(days||[]).find(dd=>dd && dd.id===currentOpenKey); d.tasks = d.tasks || []; d.tasks.push({id:generateId('t'), title:p.title, start:p.originalTask?.start||'', end:p.originalTask?.end||'', category:p.category, completed:false, postponed:false}); postponed = postponed.filter(x=>x.id!==p.id); save(LS_POST,postponed); save(LS_DAYS,days); renderAll(); renderPostponedModal(); });
         const remove = document.createElement('button'); remove.className='btn small secondary click-pulse'; remove.textContent='Usuń'; remove.addEventListener('click', ()=>{ if(confirm('Usuń odłożone zadanie?')){ postponed = postponed.filter(x=>x.id!==p.id); save(LS_POST,postponed); renderPostponedModal(); } }); btns.appendChild(restore); btns.appendChild(remove); item.appendChild(btns); list.appendChild(item); }); }
 
     if(viewPostponedBtn) viewPostponedBtn.addEventListener('click', ()=>{ renderPostponedModal(); });
 
-    /* repair button behaviour */
-    if(repairDaysBtn) repairDaysBtn.addEventListener('click', ()=>{
-      try{
-        const res = repairLegacyStructure();
-        if(!res.ok){ alert('Nie udało się naprawić: '+res.msg); return; }
-        // reload and normalize after repair
-        rawDays = loadObj(LS_DAYS);
-        days = normalizeDays(rawDays);
-        save(LS_DAYS,days);
-        renderAll();
-        alert('Próba naprawy wykonana. Jeśli nadal widzisz brakujące dni — wklej tu zawartość localStorage (klucz "'+LS_DAYS+'"), sprawdzę ręcznie.');
-      }catch(e){ console.error('repair click failed', e); }
-    });
-
     /* ===== INIT ===== */
-    // ensure days have correct structure and persisted ids
-    (function bootRepair(){ try{ // if days is empty but raw JSON exists as string -> try repair
-        if(Object.keys(days||{}).length===0){ const attempt = repairLegacyStructure(); if(attempt && attempt.ok){ rawDays = loadObj(LS_DAYS); days = normalizeDays(rawDays); save(LS_DAYS,days); } }
-      }catch(e){ console.error('bootRepair failed', e); } })();
+    (function boot(){ try{ rawDays = loadObj(LS_DAYS); days = normalizeDays(rawDays); save(LS_DAYS,days); }catch(e){ console.error('boot failed', e); } })();
 
-    // expose for debug
-    window.Motywator = {days, balance, purchases, postponed, snapToIndex, openDay};
-    snapToIndex(0, false);
+    window.Motywator = {days, balance, purchases, postponed, snapToIndex, openDay, dayHistoryStack};
+    snapToIndex(0);
     renderAll();
     window.addEventListener('beforeunload', ()=>{ try{ save(LS_DAYS,days); save(LS_PUR,purchases); save(LS_POST,postponed); localStorage.setItem(LS_BAL,balance); }catch(e){} });
 
-    /* ===== extra UX: stronger smooth press + ripple for elements with .click-pulse ===== */
+    /* ===== extra UX: ripple for .click-pulse ===== */
     (function(){
       let activeElem = null;
-      function onDown(e){ try{ const el = e.currentTarget; activeElem = el; el.classList.add('press'); const rect = el.getBoundingClientRect(); const x = (e.touches?e.touches[0].clientX:e.clientX) - rect.left; const y = (e.touches?e.touches[0].clientY:e.clientY) - rect.top; const r = Math.max(rect.width, rect.height); const span = document.createElement('span'); span.className='ripple'; span.style.width = span.style.height = (r*2.2) + 'px'; span.style.left = x + 'px'; span.style.top = y + 'px'; el.appendChild(span); setTimeout(()=>{ try{ el.removeChild(span);}catch(e){} }, 800); }catch(e){console.error('ripple onDown failed',e);} }
+      function onDown(e){ try{ const el = e.currentTarget; activeElem = el; el.classList.add('press'); const rect = el.getBoundingClientRect(); const x = (e.touches?e.touches[0].clientX:e.clientX) - rect.left; const y = (e.touches?e.touches[0].clientY:e.clientY) - rect.top; const r = Math.max(rect.width, rect.height); const span = document.createElement('span'); span.className='ripple'; span.style.width = span.style.height = (r*2.2) + 'px'; span.style.left = x + 'px'; span.style.top = y + 'px'; el.appendChild(span); setTimeout(()=>{ try{ el.removeChild(span);}catch(e){} }, 700); }catch(e){console.error('ripple onDown failed',e);} }
       function onUp(e){ try{ if(!activeElem) return; activeElem.classList.remove('press'); activeElem = null; }catch(e){console.error('ripple onUp failed',e);} }
       function attach(el){ try{ el.addEventListener('touchstart', onDown, {passive:true}); el.addEventListener('mousedown', onDown); el.addEventListener('touchend', onUp); el.addEventListener('mouseup', onUp); el.addEventListener('mouseleave', onUp); }catch(e){}}
-      // initial attach
       document.querySelectorAll('.click-pulse').forEach(attach);
-      // observe future additions (e.g. dynamic buttons)
       const obs = new MutationObserver(m=>{ m.forEach(rec=>{ rec.addedNodes && rec.addedNodes.forEach(node=>{ try{ if(node.querySelectorAll) node.querySelectorAll('.click-pulse').forEach(attach); if(node.classList && node.classList.contains && node.classList.contains('click-pulse')) attach(node); }catch(e){} }); }); });
       obs.observe(document.body,{childList:true,subtree:true});
     })();
   </script>
 </body>
 </html>
+
